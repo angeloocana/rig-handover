@@ -1,8 +1,9 @@
 ---
 plan: morning-digest
-status: ready
+status: done
 owner: rook
 opened: 2026-10-29
+closed: 2026-10-29
 ---
 
 # Morning digest
@@ -77,3 +78,23 @@ page again with `LANE_MARKER` unset (the banner reads "no marker set") and uploa
 link. Move this plan to `docs/plans/done/` with its issue list.
 
 Done when: the preview link no longer shows the lane marker.
+
+## Issues
+
+| # | Issue | Blocked by | Worker | Closed |
+|---|-------|-----------|--------|--------|
+| 1 | Digest types: DigestRow and readNight signature | — | pi · gpt-6.1-sol · high | 2026-10-29 |
+| 2 | Run log reader: readNight(runsDir, night) | #1 | pi · gpt-6.1-sol · high | 2026-10-29 |
+| 3 | Digest page: GET /digest/:night | #1, #2 | pi · claude-sonnet-5-5 · medium | 2026-10-29 |
+| 4 | Digest JSON: GET /api/digest/:night | #1, #2, #3 | pi · claude-sonnet-5-5 · medium | 2026-10-29 |
+| 5 | Board link: each night links to its digest with ok / retry / fail counts | #1, #2, #3 | pi · claude-sonnet-5-5 · medium | 2026-10-29 |
+| 6 | Route tests: digest page and JSON | #1, #3, #4 | pi · claude-sonnet-5-5 · medium | 2026-10-29 |
+| 7 | Preview for review: public HTML copy of /digest/2026-10-28 | #2–#6 | pi · claude-opus-5-5 · xhigh | 2026-10-29 |
+| 8 | Clean up: take the lane marker off the preview | #7, review | pi · claude-opus-5-5 · xhigh | 2026-10-29 |
+
+§ 1 was split in two (#1, #2) so § 2 could start against the types alone. #3–#6 ran in parallel
+worktrees; #6's first patch failed two assertions (the page escapes `'` as `&#39;`) and went back to
+the same model. #7 was first closed when the link was sent, before the reviewer had looked; it was
+reopened, then closed once the review was in. The preview was up with the lane marker from
+23:22 to 23:36 UTC; per-upload preview links were turned off, so the only public copy is the one link,
+now showing "no marker set".
